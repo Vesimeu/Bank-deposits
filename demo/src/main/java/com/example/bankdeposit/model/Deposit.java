@@ -1,30 +1,32 @@
 package com.example.bankdeposit.model;
 
-import java.time.LocalDate;
+import javax.persistence.*;
+import java.util.Date;
 
+@Entity
 public class Deposit {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "bank_id", nullable = false)
     private Bank bank;
-    private LocalDate openingDate;
-    private double interestRate;
-    private int durationMonths;
 
-    // Конструкторы, геттеры и сеттеры
+    @Temporal(TemporalType.DATE)
+    private Date openingDate;
 
-    public Deposit() {
-    }
+    private double interest;
 
-    public Deposit(Long id, Client client, Bank bank, LocalDate openingDate, double interestRate, int durationMonths) {
-        this.id = id;
-        this.client = client;
-        this.bank = bank;
-        this.openingDate = openingDate;
-        this.interestRate = interestRate;
-        this.durationMonths = durationMonths;
-    }
+    private int termMonths;
 
-    // Геттеры и сеттеры
+    // Геттеры и сеттеры для всех полей
+
     public Long getId() {
         return id;
     }
@@ -49,27 +51,27 @@ public class Deposit {
         this.bank = bank;
     }
 
-    public LocalDate getOpeningDate() {
+    public Date getOpeningDate() {
         return openingDate;
     }
 
-    public void setOpeningDate(LocalDate openingDate) {
+    public void setOpeningDate(Date openingDate) {
         this.openingDate = openingDate;
     }
 
-    public double getInterestRate() {
-        return interestRate;
+    public double getInterest() {
+        return interest;
     }
 
-    public void setInterestRate(double interestRate) {
-        this.interestRate = interestRate;
+    public void setInterest(double interest) {
+        this.interest = interest;
     }
 
-    public int getDurationMonths() {
-        return durationMonths;
+    public int getTermMonths() {
+        return termMonths;
     }
 
-    public void setDurationMonths(int durationMonths) {
-        this.durationMonths = durationMonths;
+    public void setTermMonths(int termMonths) {
+        this.termMonths = termMonths;
     }
 }
