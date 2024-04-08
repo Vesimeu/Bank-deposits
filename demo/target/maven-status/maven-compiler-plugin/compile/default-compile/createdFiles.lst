@@ -1,0 +1,14 @@
+com\example\demo\DemoApplication.class
+com\example\bankdeposit\repository\DepositRepository.class
+com\example\bankdeposit\repository\BankRepository.class
+com\example\bankdeposit\controller\DepositController.class
+com\example\bankdeposit\model\Client.class
+com\example\bankdeposit\controller\BankController.class
+com\example\bankdeposit\service\DepositService.class
+com\example\bankdeposit\model\Bank.class
+com\example\bankdeposit\service\BankService.class
+com\example\bankdeposit\controller\ClientController.class
+com\example\bankdeposit\repository\ClientRepository.class
+com\example\bankdeposit\service\ClientService.class
+com\example\bankdeposit\config\DatabaseConfig.class
+com\example\bankdeposit\model\Deposit.class
