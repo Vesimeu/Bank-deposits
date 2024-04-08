@@ -1,7 +1,7 @@
 package com.example.demo;
 
 import java.io.Console;
-
+import com.example.bankdeposit.config.DatabaseConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
