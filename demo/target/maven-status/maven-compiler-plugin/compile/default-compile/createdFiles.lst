@@ -1,3 +1,4 @@
+com\example\bankdeposit\config\MvcConfig.class
 com\example\demo\DemoApplication.class
 com\example\bankdeposit\repository\DepositRepository.class
 com\example\bankdeposit\repository\BankRepository.class
@@ -9,6 +10,8 @@ com\example\bankdeposit\model\Bank.class
 com\example\bankdeposit\service\BankService.class
 com\example\bankdeposit\controller\ClientController.class
 com\example\bankdeposit\repository\ClientRepository.class
+com\example\bankdeposit\controller\CustomErrorController.class
 com\example\bankdeposit\service\ClientService.class
+com\example\bankdeposit\controller\HomeController.class
 com\example\bankdeposit\config\DatabaseConfig.class
 com\example\bankdeposit\model\Deposit.class
