@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Managements</title>
+</head>
+<body>
+    <h1>Client Managements</h1>
+    
+    <!-- Форма создания/редактирования клиента -->
+    <form id="clientForm">
+        <input type="hidden" id="clientId" name="clientId">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="shortName">Short Name:</label>
+        <input type="text" id="shortName" name="shortName"><br><br>
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address"><br><br>
+        <label for="legalForm">Legal Form:</label>
+        <select id="legalForm" name="legalForm">
+            <option value="Option 1">Option 1</option>
+            <option value="Option 2">Option 2</option>
+            <option value="Option 3">Option 3</option>
+            <!-- Здесь должны быть ваши организационно-правовые формы -->
+        </select><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Таблица для отображения списка клиентов -->
+    <h2>Clients</h2>
+    <table id="clientTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Short Name</th>
+                <th>Address</th>
+                <th>Legal Form</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Здесь будут отображаться клиенты из базы данных -->
+        </tbody>
+    </table>
+
+    <script>
+        // JavaScript для отправки данных формы и обновления таблицы клиентов
+        document.getElementById('clientForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    const clientId = formData.get('clientId');
+    const url = clientId ? `/clients/${clientId}` : '/clients/';
+    const method = clientId ? 'PUT' : 'POST'; // Используем метод PUT при редактировании клиента
+
+    fetch(url, {
+        method: method,
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // После успешного создания/обновления клиента обновляем таблицу
+        refreshClientTable();
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+        // Функция для обновления таблицы клиентов
+        function refreshClientTable() {
+    fetch('/clients/')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Data received:', data); // Отладочная информация
+        const clientTableBody = document.querySelector('#clientTable tbody');
+        clientTableBody.innerHTML = '';
+        data.forEach(client => {
+            const row = `
+                <tr>
+                    <td>${client.name}</td>
+                    <td>${client.shortName}</td>
+                    <td>${client.address}</td>
+                    <td>${client.legalForm}</td>
+                    <td>
+                        <button onclick="editClient(${client.id})">Edit</button>
+                        <button onclick="deleteClient(${client.id})">Delete</button>
+                    </td>
+                </tr>
+            `;
+            clientTableBody.innerHTML += row;
+        });
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+        // Функция для заполнения формы редактирования клиента
+        function editClient(clientId) {
+    fetch(`/clients/${clientId}`)
+    .then(response => response.json())
+    .then(client => {
+        console.log('Client data:', client); // Отладочная информация
+        document.getElementById('clientId').value = client.id; // Устанавливаем clientId в скрытом поле формы
+        document.getElementById('name').value = client.name;
+        document.getElementById('shortName').value = client.shortName;
+        document.getElementById('address').value = client.address;
+        document.getElementById('legalForm').value = client.legalForm;
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+        // Функция для удаления клиента
+        function deleteClient(clientId) {
+            fetch(`/clients/${clientId}`, {
+                method: 'DELETE'
+            })
+            .then(() => {
+                // После успешного удаления клиента обновляем таблицу
+                refreshClientTable();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // При загрузке страницы сразу обновляем таблицу клиентов
+        refreshClientTable();
+    </script>
+</body>
+</html>

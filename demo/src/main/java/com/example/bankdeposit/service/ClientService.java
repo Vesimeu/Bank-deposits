@@ -24,8 +24,11 @@ public class ClientService {
     }
 
     public List<Client> getAllClients() {
-        return clientRepository.findAll();
+        List<Client> clients = clientRepository.findAll();
+        System.out.println("Список всех клиентов из базы данных: " + clients);
+        return clients;
     }
+    
 
     public Client createClient(Client client) {
         return clientRepository.save(client);

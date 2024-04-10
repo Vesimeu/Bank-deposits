@@ -1,4 +1,4 @@
-package com.example.bankdeposit.config;
+package com.example.demo;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -10,5 +10,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
+        registry.addViewController("/clients").setViewName("clients");
+        registry.addViewController("/clients").setViewName("forward:/clients.html");
     }
 }
